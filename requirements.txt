@@ -1,0 +1,17 @@
+# Django framework
+Django==4.2.12
+
+# MySQL database connector
+mysqlclient==2.1.1
+
+# Pillow for ImageField support
+Pillow==10.1.0
+
+# Environment variables support (optional but recommended)
+python-dotenv==1.0.0
+
+# Bootstrap forms integration (optional, for crispy forms)
+django-crispy-forms==2.2.2
+
+# Django extensions for development (optional)
+django-extensions==3.3.2
