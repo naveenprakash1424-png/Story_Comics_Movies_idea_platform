@@ -1,0 +1,174 @@
+{% extends "base/theme.html" %}
+
+{% block content %}
+
+<div class="mx-auto part-container" style="max-width: 700px; line-height: 1.8; margin-top: 40px;">
+
+    <!-- Story Title -->
+    <h3 class="fw-bold part-title">{{ story.title }}</h3>
+
+    <!-- Part Info -->
+    <p class="text-muted part-info">Part {{ part.part_number }} - {{ part.title }}</p>
+
+    <hr class="my-3">
+
+    <!-- Part Image -->
+    {% if part.image %}
+    <div class="part-img-container mb-3">
+        <img src="{{ part.image.url }}" class="img-fluid rounded part-img">
+    </div>
+    {% endif %}
+
+    <!-- Content -->
+    <div class="part-content" style="white-space: pre-line; font-size: 18px; color: #222;">
+        {{ part.content }}
+    </div>
+
+    <!-- Navigation -->
+    <hr class="my-4">
+
+    <div class="d-flex justify-content-between mt-4 part-nav">
+
+        {% if prev_part %}
+            <a href="{% url 'part_detail' story.slug prev_part.part_number %}" 
+               class="read-btn">
+               ← Previous
+            </a>
+        {% else %}
+            <span></span>
+        {% endif %}
+
+        {% if next_part %}
+            <a href="{% url 'part_detail' story.slug next_part.part_number %}" 
+               class="read-btn">
+               Next →
+            </a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<style>
+/* Part Page Styles */
+
+/* Title & Info */
+.part-title {
+    font-size: 1.8rem;
+    color: #770a0c;
+    margin-bottom: 5px;
+}
+
+.part-info {
+    font-size: 0.95rem;
+}
+/* Attractive Read Button */
+.read-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: transparent;
+    color: #770a0c;
+    font-weight: 500;
+    border-radius: 25px;
+    border: 1px solid #c9cdd1;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Arrow animation */
+.read-btn .arrow {
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect */
+.read-btn:hover {
+    background: #770a0c;
+    color: #fff;
+    border-color: #770a0c;
+}
+
+/* Arrow moves */
+.read-btn:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* Image */
+.part-img-container {
+    width: 100%;
+    overflow: hidden;
+    max-height: 400px;
+}
+
+.part-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.part-img:hover {
+    transform: scale(1.02);
+}
+
+/* Content */
+.part-content {
+    font-weight: 400;
+    line-height: 1.9;
+    color: #333;
+}
+
+/* Navigation Buttons */
+.nav-btn {
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.nav-btn:hover {
+    transform: scale(1.05);
+}
+
+.btn-dark.nav-btn {
+    background-color: #770a0c;
+    border-color: #770a0c;
+    color: #fff;
+}
+
+.btn-dark.nav-btn:hover {
+    background-color: #5e080a;
+    border-color: #5e080a;
+}
+
+.btn-outline-dark.nav-btn {
+    color: #770a0c;
+    border-color: #770a0c;
+}
+
+.btn-outline-dark.nav-btn:hover {
+    background-color: #770a0c;
+    color: #fff;
+    border-color: #770a0c;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+    .part-title {
+        font-size: 1.5rem;
+    }
+
+    .part-content {
+        font-size: 16px;
+    }
+
+    .nav-btn {
+        padding: 6px 14px;
+        font-size: 0.85rem;
+    }
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,160 @@
+{% extends "base/theme.html" %}
+
+{% block content %}
+{% include "slide.html" %}
+<div class="container mt-5 story-parts-page">
+
+    <!-- Story Title -->
+    <h2 class="story-title mb-4">{{ story.title }}</h2>
+    <h5 class="story-section-title">Description</h5>
+
+    <!-- Story Description -->
+    <p class="story-desc mb-4">{{ story.description }}</p>
+
+    <hr>
+
+    <!-- Parts List -->
+    <h4 class="mb-3">Parts</h4>
+    <ul class="list-unstyled story-parts-list">
+        {% for part in parts %}
+        <li class="story-part-item d-flex align-items-center mb-3 p-3">
+
+            <!-- Optional Image -->
+            {% if part.image %}
+            <div class="part-img-container me-3">
+                <img src="{{ part.image.url }}" class="part-img">
+            </div>
+            {% endif %}
+
+            <!-- Part Info + Preview -->
+            <div class="flex-grow-1">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                    <span class="part-title">Part {{ part.part_number }} - {{ part.title }}</span>
+                    <a href="{% url 'part_detail' story.slug part.part_number %}" class="read-btn mt-auto">
+                        Read →
+                    </a>
+                </div>
+                <p class="part-preview mb-0">{{ part.content|truncatewords:25 }}</p>
+            </div>
+
+        </li>
+        {% empty %}
+        <li>No parts available</li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+<style>
+/* Story Title */
+.story-title {
+    color: #770a0c;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+/* Description */
+.story-desc {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Parts List */
+.story-parts-list {
+    padding-left: 0;
+}
+
+/* Part Item Horizontal Card */
+.story-part-item {
+    border: 1px solid #c9cdd1;
+    border-radius: 10px;
+    background: #f9f9f9;
+}
+
+/* Part Image */
+.part-img-container {
+    width: 120px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.part-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Part Title */
+.part-title {
+    font-weight: 600;
+    color: #111;
+    font-size: 1rem;
+}
+
+/* Part Preview */
+.part-preview {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/* Attractive Read Button */
+.read-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: transparent;
+    color: #770a0c;
+    font-weight: 500;
+    border-radius: 25px;
+    border: 1px solid #c9cdd1;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Arrow animation */
+.read-btn .arrow {
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect */
+.read-btn:hover {
+    background: #770a0c;
+    color: #fff;
+    border-color: #770a0c;
+}
+
+/* Arrow moves */
+.read-btn:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* Styled h5 for story sections */
+.story-section-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #770a0c; /* brand color */
+    position: relative;
+    padding-bottom: 6px;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+/* Underline effect */
+.story-section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #a60e11; /* underline color */
+    /* border-radius: 2px; */
+}
+
+</style>
+
+{% endblock %}

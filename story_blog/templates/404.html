@@ -1,0 +1,51 @@
+{% extends "base/theme.html" %}
+
+{% block content %}
+<div class="text-center my-5 notfound-page">
+
+    <h1 class="display-1 fw-bold notfound-code">404</h1>
+    <h2 class="mb-3 notfound-title">Oops! Page Not Found</h2>
+    <p class="mb-4 notfound-text">Sorry, the page you are looking for doesn’t exist.</p>
+    <a href="{% url 'home' %}" class="btn btn-warning btn-lg notfound-btn">Go Back Home</a>
+
+</div>
+
+<style>
+/* 404 Page Styling */
+.notfound-page {
+    padding: 60px 15px;
+}
+
+.notfound-code {
+    font-size: 8rem;
+    color: #770a0c;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+}
+
+.notfound-title {
+    font-weight: 700;
+    color: #770a0c;
+    font-size: 2rem;
+}
+
+.notfound-text {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.notfound-btn {
+    background-color: #770a0c;
+    border: none;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.notfound-btn:hover {
+    background-color: #5e080a;
+    transform: scale(1.05);
+}
+</style>
+{% endblock %}

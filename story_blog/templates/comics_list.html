@@ -1,0 +1,150 @@
+{% extends "base/theme.html" %}
+
+{% block content %}
+
+
+
+{% include 'slide.html' %}
+
+<h2 class="mb-5 text-center story-list-title">📚 Comics Collection</h2>
+
+<div class="container mt-4">
+    <div class="row g-4">
+        {% for comic in comics %}
+        <div class="col-md-6 col-lg-4">
+            <div class="story-card h-100">
+
+                {% if comic.image %}
+                <div class="story-img-container">
+                    <img src="{{ comic.image.url }}" class="story-img">
+                </div>
+                {% endif %}
+
+                <div class="card-body d-flex flex-column">
+                    <h5 class="story-title">{{ comic.title }}</h5>
+                    <p class="story-desc">{{ comic.description|truncatewords:20 }}</p>
+
+                    {% if comic.categories.exists %}
+                    <div class="mb-3">
+                        {% for cat in comic.categories.all %}
+                        <span class="badge story-badge">{{ cat.name }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <a href="{% url 'comic_detail' comic.slug %}" class="read-btn mt-auto">
+                        View Comic →
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No comics available</p>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+/* Stories List Title */
+.story-list-title {
+    font-weight: 700;
+    color: #770a0c;
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
+
+/* Card */
+.story-card {
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.story-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* Story Image */
+.story-img-container {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+.story-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Card Body */
+.card-body {
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Story Title */
+.story-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #111;
+    margin-bottom: 10px;
+}
+
+/* Story Description */
+.story-desc {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+/* Categories Badges */
+.story-badge {
+    background-color: #c9cdd1;
+    color: #050202;
+    font-size: 0.75rem;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding: 4px 8px;
+    border-radius: 10px;
+}
+
+/* Read Button */
+.read-btn {
+    background-color: #fff;
+    color: #770a0c;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 25px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.read-btn:hover {
+    background-color: #770a0c;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+    .story-img-container {
+        height: 150px;
+    }
+    .story-title {
+        font-size: 1.1rem;
+    }
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base/theme.html" %}
+
+{% block content %}
+
+<div class="container my-5" style="max-width: 800px;">
+
+    <!-- Comic Title -->
+    <h2 class="text-center fw-bold mb-4" style="color:#770a0c;">{{ comic.title }}</h2>
+
+    <!-- Comic Part Image -->
+    {% if current_part %}
+        <div class="text-center mb-3">
+            <img src="{{ current_part.image.url }}" 
+                  class="comic-img">
+        </div>
+        <p class="text-center text-muted mb-5 fw-semibold">
+            Part {{ current_part.part_number }}
+        </p>
+    {% else %}
+        <p class="text-center text-muted">No images available.</p>
+    {% endif %}
+
+    <!-- Navigation Buttons -->
+    <div class="d-flex justify-content-between">
+        {% if prev_part %}
+            <a href="{% url 'comic_part_detail' comic.slug prev_part.part_number %}" 
+               class="btn btn-outline-dark px-4 py-2">
+               &laquo; Previous
+            </a>
+        {% else %}
+            <span></span>
+        {% endif %}
+
+        {% if next_part %}
+            <a href="{% url 'comic_part_detail' comic.slug next_part.part_number %}" 
+               class="btn btn-dark px-4 py-2">
+               Next &raquo;
+            </a>
+        {% else %}
+            <span></span>
+        {% endif %}
+    </div>
+
+</div>
+
+<style>
+/* Minimal shadow for image */
+img.rounded.shadow-sm {
+    transition: transform 0.2s ease;
+}
+
+img.rounded.shadow-sm:hover {
+    transform: scale(1.02);
+}
+.comic-img {
+    width: 100%;        /* full width */
+    max-width: 100%;
+    height: auto;       /* keeps full image (no crop) */
+    border-radius: 12px;
+    display: block;
+}
+
+/* Buttons */
+.btn-dark {
+    background-color: #770a0c;
+    border: none;
+    color: #fff;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-dark:hover {
+    background-color: #c1121f;
+    transform: translateY(-2px);
+}
+
+.btn-outline-dark {
+    color: #770a0c;
+    border-color: #770a0c;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.btn-outline-dark:hover {
+    background-color: #770a0c;
+    color: #fff;
+    transform: translateY(-2px);
+}
+</style>
+
+{% endblock %}

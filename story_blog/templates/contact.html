@@ -1,0 +1,103 @@
+{% extends "base/theme.html" %}
+
+{% block content %}
+
+<div class="container mt-5 contact-section">
+
+    <h2 class="contact-title mb-4">Share Your Thought</h2>
+
+    {% if success %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Your message has been sent successfully!
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endif %}
+
+    <form method="POST" class="contact-form">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-control form-input" placeholder="Enter your name" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Message</label>
+            <textarea name="message" class="form-control form-input" rows="5" placeholder="Write your thoughts..." required></textarea>
+        </div>
+
+        <button type="submit" class="read-btn">Submit</button>
+    </form>
+
+</div>
+
+<style>
+/* Container */
+.contact-section {
+    max-width: 600px;
+    margin: auto;
+    padding: 25px 20px;
+    background-color: #fffbfb;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Title */
+.contact-title {
+    font-weight: 700;
+    color: #770a0c;
+    font-size: 1.8rem;
+    /* border-bottom: 2px solid #c9cdd1; */
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* Form Inputs */
+.form-input {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 10px 12px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-input:focus {
+    border-color: #770a0c;
+    box-shadow: 0 0 8px rgba(119,10,12,0.2);
+    outline: none;
+}
+
+/* Submit Button */
+/* Attractive Read Button */
+.read-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: transparent;
+    color: #770a0c;
+    font-weight: 500;
+    border-radius: 25px;
+    border: 1px solid #c9cdd1;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Arrow animation */
+.read-btn .arrow {
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect */
+.read-btn:hover {
+    background: #770a0c;
+    color: #fff;
+    border-color: #770a0c;
+}
+
+/* Arrow moves */
+.read-btn:hover .arrow {
+    transform: translateX(4px);
+}
+</style>
+
+{% endblock %}

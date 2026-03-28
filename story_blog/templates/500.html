@@ -1,0 +1,51 @@
+{% extends "base/theme.html" %}
+
+{% block content %}
+<div class="text-center my-5 error-page">
+
+    <h1 class="display-1 fw-bold error-code">500</h1>
+    <h2 class="mb-3 error-title">Oops! Something Went Wrong</h2>
+    <p class="mb-4 error-text">We’re experiencing a technical issue. Please try again later.</p>
+    <a href="{% url 'home' %}" class="btn btn-warning btn-lg error-btn">Go Back Home</a>
+
+</div>
+
+<style>
+/* 500 Error Page Styling */
+.error-page {
+    padding: 60px 15px;
+}
+
+.error-code {
+    font-size: 8rem;
+    color: #770a0c;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+}
+
+.error-title {
+    font-weight: 700;
+    color: #770a0c;
+    font-size: 2rem;
+}
+
+.error-text {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.error-btn {
+    background-color: #770a0c;
+    border: none;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.error-btn:hover {
+    background-color: #5e080a;
+    transform: scale(1.05);
+}
+</style>
+{% endblock %}

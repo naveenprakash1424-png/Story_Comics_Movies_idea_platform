@@ -1,0 +1,173 @@
+{% extends "base/theme.html" %}
+
+{% block content %}
+<!-- Home Page Slideshow -->
+<!-- Home Page Slideshow -->
+<!-- Home Page Slideshow -->
+<!-- Home Page Slideshow -->
+<!-- Slideshow -->
+ {% include "slide.html" %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-5 fw-bold text-center">📖 Latest Stories</h2>
+
+    {% for story in stories %}
+
+    <div class="story-item mb-5 pb-4">
+
+        <div class="row align-items-center">
+
+            <!-- Image -->
+            {% if story.image %}
+            <div class="col-md-4 mb-3 mb-md-0">
+                <img src="{{ story.image.url }}" class="story-img">
+            </div>
+            {% endif %}
+
+            <!-- Content -->
+            <div class="col-md-8">
+
+                <h4 class="fw-bold story-title">
+                    {{ story.title }}
+                </h4>
+
+                <p class="story-desc">
+                    {{ story.description|truncatewords:25 }}
+                </p>
+
+                <!-- Categories -->
+                <div class="mb-2">
+                    {% for cat in story.category.all %}
+                        <span class="story-tag">{{ cat.name }}</span>
+                    {% endfor %}
+                </div>
+
+                <!-- Read link -->
+                <a href="{% url 'story_detail' story.slug %}" class="read-btn">
+    Read Story 
+    <span class="arrow">→</span>
+</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    {% empty %}
+        <p class="text-center">No stories available</p>
+    {% endfor %}
+
+</div>
+
+<style>
+
+/* Story container */
+.story-item {
+    transition: 0.3s;
+}
+
+/* Hover effect (subtle) */
+.story-item:hover {
+    transform: translateY(-3px);
+}
+
+/* Image */
+.story-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Title */
+.story-title {
+    color: #111;
+    transition: 0.3s;
+}
+
+/* Title hover */
+.story-title:hover {
+    color: #770a0c;
+}
+
+/* Description */
+.story-desc {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Tags */
+.story-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    margin-right: 5px;
+    background: #f1f1f1;
+    border-radius: 20px;
+    color: #444;
+}
+
+/* Read link (not button) */
+.read-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #770a0c;
+    position: relative;
+}
+
+/* underline animation */
+.read-link::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: #c9cdd1;
+    transition: 0.3s;
+}
+
+.read-link:hover::after {
+    width: 100%;
+}
+/* Attractive Read Button */
+.read-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: transparent;
+    color: #770a0c;
+    font-weight: 500;
+    border-radius: 25px;
+    border: 1px solid #c9cdd1;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Arrow animation */
+.read-btn .arrow {
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect */
+.read-btn:hover {
+    background: #770a0c;
+    color: #fff;
+    border-color: #770a0c;
+}
+
+/* Arrow moves */
+.read-btn:hover .arrow {
+    transform: translateX(4px);
+}
+</style>
+
+{% endblock %}

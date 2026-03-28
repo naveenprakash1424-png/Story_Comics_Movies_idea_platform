@@ -1,0 +1,134 @@
+{% extends "base/theme.html" %}
+
+{% block content %}
+
+<div class="container my-5">
+
+    <!-- Title -->
+    <h2 class="text-center fw-bold mb-4 title">Movie Ideas</h2>
+
+    <!-- Filter -->
+    <form method="GET" class="d-flex justify-content-center mb-5">
+        <select name="category" class="form-select filter-dropdown" onchange="this.form.submit()">
+            <option value="">All Categories</option>
+            {% for cat in categories %}
+                <option value="{{ cat.id }}"
+                    {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>
+                    {{ cat.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <!-- Cards -->
+    <div class="row g-4">
+        {% for idea in ideas %}
+        <div class="col-md-4">
+            <div class="idea-card h-100">
+
+                {% if idea.image %}
+                <div class="img-box">
+                    <img src="{{ idea.image.url }}">
+                </div>
+                {% endif %}
+
+                <div class="p-3 d-flex flex-column">
+
+                    <h5 class="fw-semibold mb-2">{{ idea.title }}</h5>
+
+                    <p class="text-muted small mb-3">
+                        {{ idea.concept|truncatewords:15 }}
+                    </p>
+
+                    <!-- Categories -->
+                    <div class="mb-3">
+                        {% for cat in idea.categories.all %}
+                            <span class="badge story-badge">{{ cat.name }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <a href="{% url 'movie_idea_detail' idea.slug %}" class="read-btn mt-auto">
+                        Explore →
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+            <p class="text-center text-muted">No ideas available</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+<style>
+
+/* Title */
+.title {
+    color: #770a0c;
+}
+
+/* Filter */
+.filter-dropdown {
+    max-width: 300px;
+    border-radius: 25px;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+}
+
+/* Card */
+.idea-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: 0.3s;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.idea-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* Image */
+.img-box {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* Categories Badges */
+.story-badge {
+    background-color: #c9cdd1;
+    color: #333;
+    font-size: 0.75rem;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding: 4px 8px;
+    border-radius: 10px;
+}
+.read-btn {
+    background-color: #fff;
+    color: #770a0c;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 25px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s, transform 0.3s;
+}
+.read-btn:hover {
+    background-color: #770a0c;
+    color: #fff;
+    transform: scale(1.05);
+}
+</style>
+
+{% endblock %}

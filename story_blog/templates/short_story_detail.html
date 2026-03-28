@@ -1,0 +1,99 @@
+{% extends "base/theme.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row align-items-start">
+
+        <!-- LEFT: Image -->
+        {% if story.image %}
+        <div class="col-md-5 d-flex justify-content-center">
+            <img src="{{ story.image.url }}" class="story-img">
+        </div>
+        {% endif %}
+
+        <!-- RIGHT: Content -->
+        <div class="col-md-7">
+            <div class="story-content">
+                <h2 class="story-title">{{ story.title }}</h2>
+
+                <p class="story-desc">
+                    {{ story.description }}
+                </p>
+
+                <a href="{% url 'short_stories_list' %}" class="read-btn mt-auto">
+                    ← Back to Short Stories
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+/* IMAGE — FULL but CONTROLLED */
+.story-img {
+    width: 80%;
+    max-width: 100%;   /* full width inside column */
+    height: 400px;      /* keeps full image (no crop) */
+    border-radius: 12px;  /* radius applied */
+    display: block;
+}
+
+/* CONTENT */
+.story-content {
+    padding-left: 10px;
+}
+
+/* TITLE */
+.story-title {
+    color: #770a0c;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+/* DESCRIPTION (reading friendly) */
+.story-desc {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #444;
+    text-align: left;
+}
+
+/* Read Button */
+.read-btn {
+    background-color: #fff;
+    color: #770a0c;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 25px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.read-btn:hover {
+    background-color: #770a0c;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .story-img {
+        max-height: 220px;
+        margin-bottom: 15px;
+    }
+
+    .story-content {
+        padding-left: 0;
+    }
+}
+
+</style>
+
+{% endblock %}

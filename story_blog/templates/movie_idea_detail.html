@@ -1,0 +1,99 @@
+{% extends "base/theme.html" %}
+
+{% block content %}
+
+<div class="container my-5" style="max-width: 900px;">
+
+    <!-- Title -->
+    <h2 class="fw-bold mb-2 title">{{ idea.title }}</h2>
+
+    <!-- Categories -->
+    <div class="mb-3">
+        {% for cat in idea.categories.all %}
+            <span class="category-badge">{{ cat.name }}</span>
+        {% endfor %}
+    </div>
+
+    <!-- Image -->
+    {% if idea.image %}
+    <div class="image-wrapper mb-4">
+        <img src="{{ idea.image.url }}" class="idea-img">
+    </div>
+    {% endif %}
+
+    <!-- Concept -->
+    <div class="content-block">
+        <h5 class="section-title">Concept</h5>
+        <p class="content-text">{{ idea.concept }}</p>
+    </div>
+
+    <!-- Full Idea -->
+    <div class="content-block mt-4">
+        <h5 class="section-title">Full Idea</h5>
+        <p class="content-text">{{ idea.description }}</p>
+    </div>
+
+    <!-- Back -->
+    <a href="{% url 'movie_ideas_list' %}" class="back-link mt-4 d-inline-block">
+        ← Back
+    </a>
+
+</div>
+
+<style>
+
+/* Title */
+.title {
+    color: #770a0c;
+}
+
+/* Category */
+.category-badge {
+    background: #f3f3f3;
+    color: #333;
+    font-size: 0.75rem;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-right: 6px;
+}
+
+/* Image */
+.image-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.idea-img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+}
+
+/* Sections */
+.section-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #222;
+}
+
+/* Text (reading optimized) */
+.content-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #444;
+}
+
+/* Back link */
+.back-link {
+    text-decoration: none;
+    color: #770a0c;
+    font-weight: 600;
+}
+
+.back-link:hover {
+    color: #c1121f;
+}
+
+</style>
+
+{% endblock %}
